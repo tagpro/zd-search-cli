@@ -33,28 +33,21 @@ func (o *Organisation) AddTicket(ticket tickets.Ticket) {
 	o.tickets = append(o.tickets, ticket)
 }
 
-type Organisations struct {
-	orgs []*Organisation
-}
+type Organisations []*Organisation
 
-var organisations Organisations
-
-func GetOrganisations() Organisations {
-	return organisations
-}
-
-func LoadOrganisations(path string) error {
+func LoadOrganisations(path string) (Cache, error) {
+	var organisations Organisations
 	if path == "" {
-		return errors.New("no file path available")
+		return nil, errors.New("no file path available")
 	}
 
 	jsonFile, err := os.ReadFile(path)
 	if err != nil {
-		return fmt.Errorf("error reading JSON file: %s", err)
+		return nil, fmt.Errorf("error reading JSON file: %w", err)
 	}
 	err = json.Unmarshal(jsonFile, &organisations)
 	if err != nil {
-		return fmt.Errorf("error parsing JSON file: %s", err)
+		return nil, fmt.Errorf("error parsing JSON file: %w", err)
 	}
-	return nil
+	return newCache(organisations), nil
 }

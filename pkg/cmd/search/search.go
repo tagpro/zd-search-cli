@@ -1,7 +1,12 @@
 package search
 
 import (
+	"errors"
 	"fmt"
+
+	"github.com/tagpro/zd-search-cli/pkg/zerror"
+
+	"github.com/tagpro/zd-search-cli/pkg/serializer"
 
 	"github.com/tagpro/zd-search-cli/pkg/store"
 )
@@ -13,32 +18,35 @@ type Cli interface {
 
 // app is a basic implementation of the search app which fulfils Cli interface
 type app struct {
-	store store.Store
+	serializer serializer.Serializer
 }
 
 func (a *app) Run() error {
-	fmt.Println("Starting the app...")
-
-	// TODO: Load and parse the data
-
-	err := a.store.LoadData()
-	if err != nil {
-		return err
+	fmt.Println("Starting the app . . .")
+	for {
+		err := a.serve()
+		if err != nil && errors.Is(err, zerror.ErrQuit) {
+			fmt.Println("Quitting . . .")
+			return nil
+		}
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
+	// TODO: Create logic to print output
 
-	// TODO: Create prompts to read user input
-	// TODO: Create logic to handle different inputs
-	return nil
 }
 
-func NewSearchApp(usersFile, ticketsFile, organisationFile string) Cli {
-	return &app{
-		store: store.NewStore(store.Files{
-			UsersFile:         usersFile,
-			TicketsFile:       ticketsFile,
-			OrganisationsFile: organisationFile,
-		}),
+func NewSearchApp(usersFile, ticketsFile, organisationFile string) (Cli, error) {
+	s, err := store.NewStore(store.Files{
+		UsersFile:         usersFile,
+		TicketsFile:       ticketsFile,
+		OrganisationsFile: organisationFile,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to create store: %w", err)
 	}
+	return &app{serializer.NewSerializer(s)}, nil
 }
 
 func Help() {

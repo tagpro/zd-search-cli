@@ -27,7 +27,10 @@ func main() {
 		search.Help()
 		return
 	}
-	app := search.NewSearchApp(userFile, ticketFile, orgFile)
+	app, err := search.NewSearchApp(userFile, ticketFile, orgFile)
+	if err != nil {
+		log.Fatalf("Couldn't start Application: %v", err)
+	}
 	if err := app.Run(); err != nil {
 		log.Fatalf("Got an unexpected error: %v", err)
 	}

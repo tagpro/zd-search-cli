@@ -52,7 +52,23 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 			return err
 		}
 		for _, org := range orgs {
-			fmt.Println(org)
+			fmt.Printf("%+v", org)
+		}
+	case Users:
+		users, err := s.store.GetUsers(criteria.Field, criteria.Value)
+		if err != nil {
+			return err
+		}
+		for _, user := range users {
+			fmt.Printf("%+v", user)
+		}
+	case Tickets:
+		tickets, err := s.store.GetTickets(criteria.Field, criteria.Value)
+		if err != nil {
+			return err
+		}
+		for _, ticket := range tickets {
+			fmt.Printf("%+v", ticket)
 		}
 	}
 	return nil

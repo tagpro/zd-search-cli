@@ -12,25 +12,25 @@ import (
 )
 
 type Organisation struct {
-	Id            int              `json:"_id"`
-	Url           string           `json:"url"`
-	ExternalId    string           `json:"external_id"`
-	Name          string           `json:"name"`
-	DomainNames   []string         `json:"domain_names"`
-	CreatedAt     jsontime.Time    `json:"created_at"`
-	Details       string           `json:"details"`
-	SharedTickets bool             `json:"shared_tickets"`
-	Tags          []string         `json:"tags"`
-	users         []users.User     `json:"-"`
-	tickets       []tickets.Ticket `json:"-"`
+	Id            int             `json:"_id"`
+	Url           string          `json:"url"`
+	ExternalId    string          `json:"external_id"`
+	Name          string          `json:"name"`
+	DomainNames   []string        `json:"domain_names"`
+	CreatedAt     jsontime.Time   `json:"created_at"`
+	Details       string          `json:"details"`
+	SharedTickets bool            `json:"shared_tickets"`
+	Tags          []string        `json:"tags"`
+	Users         users.Users     `json:"-"`
+	Tickets       tickets.Tickets `json:"-"`
 }
 
-func (o *Organisation) AddUser(user users.User) {
-	o.users = append(o.users, user)
+func (o *Organisation) AddUser(user *users.User) {
+	o.Users = append(o.Users, user)
 }
 
-func (o *Organisation) AddTicket(ticket tickets.Ticket) {
-	o.tickets = append(o.tickets, ticket)
+func (o *Organisation) AddTicket(ticket *tickets.Ticket) {
+	o.Tickets = append(o.Tickets, ticket)
 }
 
 type Organisations []*Organisation

@@ -2,7 +2,6 @@ package serializer
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/tagpro/zd-search-cli/pkg/store"
 )
@@ -51,7 +50,7 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		if err != nil {
 			return err
 		}
-		err = s.printOrganisation(orgs)
+		err = s.printOrganisations(orgs)
 		if err != nil {
 			return err
 		}
@@ -60,16 +59,18 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		if err != nil {
 			return err
 		}
-		for _, user := range users {
-			fmt.Printf("%+v", user)
+		err = s.printUsers(users)
+		if err != nil {
+			return err
 		}
 	case Tickets:
 		tickets, err := s.store.GetTickets(criteria.Field, criteria.Value)
 		if err != nil {
 			return err
 		}
-		for _, ticket := range tickets {
-			fmt.Printf("%+v", ticket)
+		err = s.printTickets(tickets)
+		if err != nil {
+			return err
 		}
 	}
 	return nil

@@ -1,8 +1,11 @@
 package serializer
 
 import (
+	"errors"
 	"strconv"
 	"strings"
+
+	"github.com/tagpro/zd-search-cli/pkg/zerror"
 
 	"github.com/tagpro/zd-search-cli/pkg/jsontime"
 	orgstore "github.com/tagpro/zd-search-cli/pkg/store/organistations"
@@ -10,19 +13,7 @@ import (
 	userstore "github.com/tagpro/zd-search-cli/pkg/store/users"
 )
 
-const (
-	Id            = "_id"
-	Url           = "url"
-	ExternalId    = "external_id"
-	Name          = "name"
-	DomainNames   = "domain_names"
-	CreatedAt     = "created_at"
-	Details       = "details"
-	SharedTickets = "shared_tickets"
-	Tags          = "tags"
-)
-
-func (s *serializer) printOrganisation(organisations orgstore.Organisations) error {
+func (s *serializer) printOrganisations(organisations orgstore.Organisations) error {
 
 	for _, org := range organisations {
 		// Print Org info
@@ -43,26 +34,26 @@ func (s *serializer) printOrganisation(organisations orgstore.Organisations) err
 		// Print Users
 		printData = []kv{}
 		users, err := s.store.GetUsers(userstore.OrganizationId, strconv.Itoa(org.Id))
-		if err != nil {
+		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}
 		for i, user := range users {
 			printData = append(printData, kv{strconv.Itoa(i), user.Name})
 		}
 
-		pprint("Users for "+org.Name, printData...)
+		pprint("Users for organisation: "+org.Name, printData...)
 
 		// Print Tickets
 		printData = []kv{}
 		tickets, err := s.store.GetTickets(ticketstore.OrganizationId, strconv.Itoa(org.Id))
-		if err != nil {
+		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}
 		for i, ticket := range tickets {
 			printData = append(printData, kv{strconv.Itoa(i), ticket.Subject})
 		}
 
-		pprint("Tickets for "+org.Name, printData...)
+		pprint("Tickets for organisation: "+org.Name, printData...)
 	}
 	return nil
 }

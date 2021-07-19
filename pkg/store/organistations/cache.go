@@ -11,15 +11,15 @@ import (
 )
 
 const (
-	Id            = "Id"
-	Url           = "Url"
-	ExternalId    = "ExternalId"
-	Name          = "Name"
-	DomainNames   = "DomainNames"
-	CreatedAt     = "CreatedAt"
-	Details       = "Details"
-	SharedTickets = "SharedTickets"
-	Tags          = "Tags"
+	Id            = "_id"
+	Url           = "url"
+	ExternalId    = "external_id"
+	Name          = "name"
+	DomainNames   = "domain_names"
+	CreatedAt     = "created_at"
+	Details       = "details"
+	SharedTickets = "shared_tickets"
+	Tags          = "tags"
 )
 
 var keys = []string{

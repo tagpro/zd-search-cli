@@ -51,8 +51,9 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		if err != nil {
 			return err
 		}
-		for _, org := range orgs {
-			fmt.Printf("%+v", org)
+		err = s.printOrganisation(orgs)
+		if err != nil {
+			return err
 		}
 	case Users:
 		users, err := s.store.GetUsers(criteria.Field, criteria.Value)

@@ -33,8 +33,6 @@ func (a *app) Run() error {
 			fmt.Println(err)
 		}
 	}
-	// TODO: Create logic to print output
-
 }
 
 func NewSearchApp(usersFile, ticketsFile, organisationFile string) (Cli, error) {

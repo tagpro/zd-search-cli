@@ -34,7 +34,12 @@ func (a *app) serve() error {
 	if err != nil {
 		return fmt.Errorf("prompt failed: %w", err)
 	}
+	return a.handlePrimaryResponse(result)
+}
 
+// handlePrimaryResponse uses the output from users selection prompt to read the result and perform logic based on the
+// chosen input
+func (a *app) handlePrimaryResponse(result string) error {
 	switch result {
 	case searchZendesk:
 		criteria, err := getSearchCriteria()
@@ -48,6 +53,7 @@ func (a *app) serve() error {
 		}
 		return err
 	case showFields:
+		//TODO: Get all the fields in serializer and print it
 		fmt.Println("Showing all the fields")
 	case quit:
 		return fmt.Errorf("%w", zerror.ErrQuit)

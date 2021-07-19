@@ -12,11 +12,17 @@ type Files struct {
 	OrganisationsFile string
 }
 
-// TODO: Optimise store objects to link to each other
+type Keys struct {
+	Organisation []string
+	User         []string
+	Ticket       []string
+}
+
 type Store interface {
 	GetOrganisations(key, input string) (orgstore.Organisations, error)
 	GetUsers(key, input string) (userstore.Users, error)
 	GetTickets(key, input string) (ticketstore.Tickets, error)
+	GetKeys() Keys
 }
 
 type store struct {
@@ -35,6 +41,14 @@ func (s *store) GetUsers(key, input string) (userstore.Users, error) {
 
 func (s *store) GetTickets(key, input string) (ticketstore.Tickets, error) {
 	return s.tickets.GetTickets(key, input)
+}
+
+func (s *store) GetKeys() Keys {
+	return Keys{
+		Organisation: orgstore.GetKeys(),
+		User:         userstore.GetKeys(),
+		Ticket:       ticketstore.GetKeys(),
+	}
 }
 
 // init optimises the data by create a cache for all the data.

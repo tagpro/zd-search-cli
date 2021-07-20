@@ -24,11 +24,6 @@ var valid = &cache{
 	data: map[string]map[string]Organisations{},
 }
 
-type testcase struct {
-	name string
-	test func(t *testing.T)
-}
-
 func TestLoadOrganisations(t *testing.T) {
 	t.Run("Fails for dir path", TestLoadOrganisation_emptyPath)
 	t.Run("Fails for bad path", TestLoadOrganisation_badPath)

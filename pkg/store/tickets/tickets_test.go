@@ -8,11 +8,6 @@ import (
 	"github.com/tagpro/zd-search-cli/pkg/jsontime"
 )
 
-type testcase struct {
-	name string
-	test func(t *testing.T)
-}
-
 func TestLoadTickets(t *testing.T) {
 	t.Run("Fails for dir path", TestLoadTicket_emptyPath)
 	t.Run("Fails for bad path", TestLoadTicket_badPath)

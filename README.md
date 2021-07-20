@@ -18,6 +18,21 @@ Run the following command to start the application in your local terminal.
 make run
 ```
 
+## Running linter locally
+
+This repo uses [golangci-lint](https://github.com/golangci/golangci-lint) to do linting. 
+
+To install the tool, run `make install-linter` inside the terminal from the root of the repo. 
+It requires `$GOPATH/bin` to be available inside the `$PATH` (official Go installer does this by default).
+
+If you are on linux, setting the following in `~/.zshrc` or `~/.bashrc` or any other shell of your choosing and restarting the terminal should work 
+
+```bash
+export PATH="$PATH:$(go env GOPATH)/bin"
+```
+
+Alternatively, you can follow installations instructions [here](https://golangci-lint.run/usage/install/#local-installation) 
+
 ## Repo layout
 
 - The entrypoint of the application is `cmd/search` which has the main golang file. 

@@ -1,6 +1,9 @@
 package users
 
+//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=mocks . Cache
+
 import (
+	"errors"
 	"fmt"
 	"strconv"
 
@@ -76,7 +79,22 @@ func (c *cache) GetUsers(key, input string) (Users, error) {
 	}
 }
 
+func (c *cache) Optimise() error {
+	if c.users == nil || c.data == nil {
+		return errors.New("cache not initialised")
+	}
+	for _, user := range c.users {
+		if err := c.addUser(user); err != nil {
+			return fmt.Errorf("failed to load all users: %w", err)
+		}
+	}
+	return nil
+}
+
 func (c *cache) addUser(user *User) error {
+	if c.data == nil {
+		return fmt.Errorf("cache data not initialised")
+	}
 	// Insert _id
 	if _, ok := c.data[Id]; !ok {
 		c.data[Id] = map[string]Users{}
@@ -190,15 +208,6 @@ func (c *cache) addUser(user *User) error {
 		c.data[Role] = map[string]Users{}
 	}
 	c.data[Role][user.Role] = append(c.data[Role][user.Role], user)
-	return nil
-}
-
-func (c *cache) Optimise() error {
-	for _, user := range c.users {
-		if err := c.addUser(user); err != nil {
-			return fmt.Errorf("failed to load all users: %w", err)
-		}
-	}
 	return nil
 }
 

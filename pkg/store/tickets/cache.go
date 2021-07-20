@@ -1,5 +1,7 @@
 package tickets
 
+//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=mocks . Cache
+
 import (
 	"errors"
 	"fmt"

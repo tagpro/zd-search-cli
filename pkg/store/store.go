@@ -1,9 +1,14 @@
 package store
 
+//go:generate mockgen -source=store.go -destination=testdata/mocks/store.go -package=mocks . Store
+
 import (
+	"context"
+
 	orgstore "github.com/tagpro/zd-search-cli/pkg/store/organistations"
 	ticketstore "github.com/tagpro/zd-search-cli/pkg/store/tickets"
 	userstore "github.com/tagpro/zd-search-cli/pkg/store/users"
+	"golang.org/x/sync/errgroup"
 )
 
 type Files struct {
@@ -59,24 +64,41 @@ func (s *store) init() error {
 	if err := s.users.Optimise(); err != nil {
 		return err
 	}
-	if err := s.tickets.Optimise(); err != nil {
-		return err
-	}
-	return nil
+	return s.tickets.Optimise()
 }
 
 func NewStore(f Files) (Store, error) {
-	// TODO: Load files in go routines (errgroup)
-	orgs, err := orgstore.LoadOrganisations(f.OrganisationsFile)
-	if err != nil {
-		return nil, err
-	}
-	users, err := userstore.LoadUsers(f.UsersFile)
-	if err != nil {
-		return nil, err
-	}
-	tickets, err := ticketstore.LoadTickets(f.TicketsFile)
-	if err != nil {
+	g, _ := errgroup.WithContext(context.TODO())
+	var orgs orgstore.Cache
+	var users userstore.Cache
+	var tickets ticketstore.Cache
+	g.Go(func() error {
+		var err error
+		orgs, err = orgstore.LoadOrganisations(f.OrganisationsFile)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+
+	g.Go(func() error {
+		var err error
+		users, err = userstore.LoadUsers(f.UsersFile)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+
+	g.Go(func() error {
+		var err error
+		tickets, err = ticketstore.LoadTickets(f.TicketsFile)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err := g.Wait(); err != nil {
 		return nil, err
 	}
 	s := &store{organisations: orgs, users: users, tickets: tickets}

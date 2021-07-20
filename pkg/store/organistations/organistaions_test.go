@@ -9,21 +9,6 @@ import (
 	tassert "github.com/stretchr/testify/assert"
 )
 
-var valid = &cache{
-	organisations: Organisations{{
-		Id:            101,
-		Url:           "url",
-		ExternalId:    "external id",
-		Name:          "Mega Corp",
-		DomainNames:   []string{"corp.com", "bar.com"},
-		CreatedAt:     jsontime.Time{},
-		Details:       "MegaCorp",
-		SharedTickets: false,
-		Tags:          []string{"Foo", "Bar"},
-	}},
-	data: map[string]map[string]Organisations{},
-}
-
 func TestLoadOrganisations(t *testing.T) {
 	t.Run("Fails for dir path", TestLoadOrganisation_emptyPath)
 	t.Run("Fails for bad path", TestLoadOrganisation_badPath)
@@ -67,6 +52,20 @@ func TestLoadOrganisation_badJSONValues(t *testing.T) {
 func TestLoadOrganisation_validFile(t *testing.T) {
 	t.Parallel()
 	assert := tassert.New(t)
+	var valid = &cache{
+		organisations: Organisations{{
+			Id:            101,
+			Url:           "url",
+			ExternalId:    "external id",
+			Name:          "Mega Corp",
+			DomainNames:   []string{"corp.com", "bar.com"},
+			CreatedAt:     jsontime.Time{},
+			Details:       "MegaCorp",
+			SharedTickets: false,
+			Tags:          []string{"Foo", "Bar"},
+		}},
+		data: map[string]map[string]Organisations{},
+	}
 	expectedTime, err := time.Parse(jsontime.ZDTimeFormat, "2016-05-21T11:10:28 -10:00")
 	assert.NoError(err)
 	valid.organisations[0].CreatedAt.Time = expectedTime

@@ -60,7 +60,22 @@ func (c *cache) GetOrganisations(key, input string) (Organisations, error) {
 	}
 }
 
+func (c *cache) Optimise() error {
+	if c.organisations == nil || c.data == nil {
+		return errors.New("cache not initialised")
+	}
+	for _, o := range c.organisations {
+		if err := c.addOrganisation(o); err != nil {
+			return fmt.Errorf("couldn't load all organisations: %w", err)
+		}
+	}
+	return nil
+}
+
 func (c *cache) addOrganisation(org *Organisation) error {
+	if c.data == nil {
+		return fmt.Errorf("cache data not initialised")
+	}
 	// Insert _id
 	if _, ok := c.data[Id]; !ok {
 		c.data[Id] = map[string]Organisations{}
@@ -117,18 +132,6 @@ func (c *cache) addOrganisation(org *Organisation) error {
 	}
 	for _, tag := range org.Tags {
 		c.data[Tags][tag] = append(c.data[Tags][tag], org)
-	}
-	return nil
-}
-
-func (c *cache) Optimise() error {
-	if c.organisations == nil {
-		return errors.New("organisations not loaded")
-	}
-	for _, o := range c.organisations {
-		if err := c.addOrganisation(o); err != nil {
-			return fmt.Errorf("couldn't load all organisations: %w", err)
-		}
 	}
 	return nil
 }

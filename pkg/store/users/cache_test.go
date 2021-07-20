@@ -14,7 +14,7 @@ import (
 func TestGetUsers(t *testing.T) {
 	t.Run("Fails to return with invalid key name", TestGetUsers_invalidKey)
 	t.Run("Fails to return with invalid value", TestGetUsers_notFound)
-	t.Run("Successfully returns useranistaions list", TestGetUsers_Found)
+	t.Run("Successfully returns users list", TestGetUsers_Found)
 }
 
 func TestGetUsers_invalidKey(t *testing.T) {
@@ -62,9 +62,9 @@ func TestAddUser_invalidCache(t *testing.T) {
 func TestAddUser_successful(t *testing.T) {
 	assert := tassert.New(t)
 	user := &User{
-		Id:             1,
-		Url:            "url",
-		ExternalId:     "external id",
+		ID:             1,
+		URL:            "url",
+		ExternalID:     "external id",
 		Name:           "John Doe",
 		Alias:          "Foo bar",
 		CreatedAt:      jsontime.Time{},
@@ -77,7 +77,7 @@ func TestAddUser_successful(t *testing.T) {
 		Email:          "foo@bar.com",
 		Phone:          "1234-567-789",
 		Signature:      "Don't Worry Be Happy!",
-		OrganizationId: 100,
+		OrganizationID: 100,
 		Tags:           []string{"Sutton", "Forrest"},
 		Suspended:      true,
 		Role:           "admin",
@@ -87,9 +87,9 @@ func TestAddUser_successful(t *testing.T) {
 		data:  map[string]map[string]Users{},
 	}
 	want := map[string]map[string]Users{
-		Id:             {"1": Users{user}},
-		Url:            {"url": Users{user}},
-		ExternalId:     {"external id": Users{user}},
+		ID:             {"1": Users{user}},
+		URL:            {"url": Users{user}},
+		ExternalID:     {"external id": Users{user}},
 		Name:           {"John Doe": Users{user}},
 		Alias:          {"Foo bar": Users{user}},
 		CreatedAt:      {"0001-01-01T00:00:00 +00:00": Users{user}},
@@ -102,7 +102,7 @@ func TestAddUser_successful(t *testing.T) {
 		Email:          {"foo@bar.com": Users{user}},
 		Phone:          {"1234-567-789": Users{user}},
 		Signature:      {"Don't Worry Be Happy!": Users{user}},
-		OrganizationId: {"100": Users{user}},
+		OrganizationID: {"100": Users{user}},
 		Tags:           {"Sutton": Users{user}, "Forrest": Users{user}},
 		Suspended:      {"true": Users{user}},
 		Role:           {"admin": Users{user}},

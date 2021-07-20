@@ -19,9 +19,9 @@ func (s *serializer) printUsers(users userstore.Users) error {
 		// Print User info
 		var printData []kv
 		printData = append(printData,
-			kv{Id, strconv.Itoa(user.Id)},
-			kv{Url, user.Url},
-			kv{ExternalId, user.ExternalId},
+			kv{ID, strconv.Itoa(user.ID)},
+			kv{URL, user.URL},
+			kv{ExternalID, user.ExternalID},
 			kv{Name, user.Name},
 			kv{Alias, user.Alias},
 			kv{CreatedAt, user.CreatedAt.Format(jsontime.ZDTimeFormat)},
@@ -34,7 +34,7 @@ func (s *serializer) printUsers(users userstore.Users) error {
 			kv{Email, user.Email},
 			kv{Phone, user.Phone},
 			kv{Signature, user.Signature},
-			kv{OrganizationId, strconv.Itoa(user.OrganizationId)},
+			kv{OrganizationID, strconv.Itoa(user.OrganizationID)},
 			kv{Tags, strings.Join(user.Tags, ", ")},
 			kv{Suspended, strconv.FormatBool(user.Suspended)},
 			kv{Role, user.Role},
@@ -43,19 +43,19 @@ func (s *serializer) printUsers(users userstore.Users) error {
 
 		// Print Organisation
 		printData = []kv{}
-		orgs, err := s.store.GetOrganisations(orgstore.Id, strconv.Itoa(user.OrganizationId))
+		orgs, err := s.store.GetOrganisations(orgstore.ID, strconv.Itoa(user.OrganizationID))
 		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}
 		for _, org := range orgs {
-			printData = append(printData, kv{strconv.Itoa(org.Id), org.Name})
+			printData = append(printData, kv{strconv.Itoa(org.ID), org.Name})
 		}
 
 		pprint("Organisation for user: "+user.Name, printData...)
 
 		// Print submitted tickets
 		printData = []kv{}
-		tickets, err := s.store.GetTickets(ticketstore.SubmitterId, strconv.Itoa(user.Id))
+		tickets, err := s.store.GetTickets(ticketstore.SubmitterID, strconv.Itoa(user.ID))
 		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}
@@ -66,7 +66,7 @@ func (s *serializer) printUsers(users userstore.Users) error {
 
 		// Print assigned tickets
 		printData = []kv{}
-		tickets, err = s.store.GetTickets(ticketstore.AssigneeId, strconv.Itoa(user.Id))
+		tickets, err = s.store.GetTickets(ticketstore.AssigneeID, strconv.Itoa(user.ID))
 		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}

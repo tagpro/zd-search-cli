@@ -9,9 +9,9 @@ import (
 )
 
 type User struct {
-	Id             int           `json:"_id"`
-	Url            string        `json:"url"`
-	ExternalId     string        `json:"external_id"`
+	ID             int           `json:"_id"`
+	URL            string        `json:"url"`
+	ExternalID     string        `json:"external_id"`
 	Name           string        `json:"name"`
 	Alias          string        `json:"alias"`
 	CreatedAt      jsontime.Time `json:"created_at"`
@@ -24,7 +24,7 @@ type User struct {
 	Email          string        `json:"email"`
 	Phone          string        `json:"phone"`
 	Signature      string        `json:"signature"`
-	OrganizationId int           `json:"organization_id"`
+	OrganizationID int           `json:"organization_id"`
 	Tags           []string      `json:"tags"`
 	Suspended      bool          `json:"suspended"`
 	Role           string        `json:"role"`

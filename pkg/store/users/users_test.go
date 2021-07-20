@@ -59,9 +59,9 @@ func TestLoadUser_validFile(t *testing.T) {
 
 	var want = &cache{
 		users: Users{{
-			Id:             1,
-			Url:            "url",
-			ExternalId:     "external id",
+			ID:             1,
+			URL:            "url",
+			ExternalID:     "external id",
 			Name:           "John Doe",
 			Alias:          "Foo bar",
 			CreatedAt:      jsontime.Time{Time: createdAt},
@@ -74,7 +74,7 @@ func TestLoadUser_validFile(t *testing.T) {
 			Email:          "foo@bar.com",
 			Phone:          "1234-567-789",
 			Signature:      "Don't Worry Be Happy!",
-			OrganizationId: 100,
+			OrganizationID: 100,
 			Tags:           []string{"Sutton", "Forrest"},
 			Suspended:      true,
 			Role:           "admin",

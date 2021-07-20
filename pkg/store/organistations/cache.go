@@ -13,9 +13,9 @@ import (
 )
 
 const (
-	Id            = "_id"
-	Url           = "url"
-	ExternalId    = "external_id"
+	ID            = "_id"
+	URL           = "url"
+	ExternalID    = "external_id"
 	Name          = "name"
 	DomainNames   = "domain_names"
 	CreatedAt     = "created_at"
@@ -25,9 +25,9 @@ const (
 )
 
 var keys = []string{
-	Id,
-	Url,
-	ExternalId,
+	ID,
+	URL,
+	ExternalID,
 	Name,
 	DomainNames,
 	CreatedAt,
@@ -79,22 +79,22 @@ func (c *cache) addOrganisation(org *Organisation) error {
 		return fmt.Errorf("cache data not initialised")
 	}
 	// Insert _id
-	if _, ok := c.data[Id]; !ok {
-		c.data[Id] = map[string]Organisations{}
+	if _, ok := c.data[ID]; !ok {
+		c.data[ID] = map[string]Organisations{}
 	}
-	c.data[Id][strconv.Itoa(org.Id)] = append(c.data[Id][strconv.Itoa(org.Id)], org)
+	c.data[ID][strconv.Itoa(org.ID)] = append(c.data[ID][strconv.Itoa(org.ID)], org)
 
 	// Insert url
-	if _, ok := c.data[Url]; !ok {
-		c.data[Url] = map[string]Organisations{}
+	if _, ok := c.data[URL]; !ok {
+		c.data[URL] = map[string]Organisations{}
 	}
-	c.data[Url][org.Url] = append(c.data[Url][org.Url], org)
+	c.data[URL][org.URL] = append(c.data[URL][org.URL], org)
 
-	// Insert external Id
-	if _, ok := c.data[ExternalId]; !ok {
-		c.data[ExternalId] = map[string]Organisations{}
+	// Insert external ID
+	if _, ok := c.data[ExternalID]; !ok {
+		c.data[ExternalID] = map[string]Organisations{}
 	}
-	c.data[ExternalId][org.ExternalId] = append(c.data[ExternalId][org.ExternalId], org)
+	c.data[ExternalID][org.ExternalID] = append(c.data[ExternalID][org.ExternalID], org)
 
 	// Insert name
 	if _, ok := c.data[Name]; !ok {

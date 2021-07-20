@@ -13,18 +13,18 @@ import (
 )
 
 const (
-	Id             = "_id"
-	Url            = "url"
-	ExternalId     = "external_id"
+	ID             = "_id"
+	URL            = "url"
+	ExternalID     = "external_id"
 	CreatedAt      = "created_at"
 	Type           = "type"
 	Subject        = "subject"
 	Description    = "description"
 	Priority       = "priority"
 	Status         = "status"
-	SubmitterId    = "submitter_id"
-	AssigneeId     = "assignee_id"
-	OrganizationId = "organization_id"
+	SubmitterID    = "submitter_id"
+	AssigneeID     = "assignee_id"
+	OrganizationID = "organization_id"
 	Tags           = "tags"
 	HasIncidents   = "has_incidents"
 	DueAt          = "due_at"
@@ -33,18 +33,18 @@ const (
 
 func GetKeys() []string {
 	return []string{
-		Id,
-		Url,
-		ExternalId,
+		ID,
+		URL,
+		ExternalID,
 		CreatedAt,
 		Type,
 		Subject,
 		Description,
 		Priority,
 		Status,
-		SubmitterId,
-		AssigneeId,
-		OrganizationId,
+		SubmitterID,
+		AssigneeID,
+		OrganizationID,
 		Tags,
 		HasIncidents,
 		DueAt,
@@ -89,21 +89,21 @@ func (c *cache) addTicket(ticket *Ticket) error {
 		return fmt.Errorf("cache data not initialised")
 	}
 	//insert _id
-	if _, ok := c.data[Id]; !ok {
-		c.data[Id] = map[string]Tickets{}
+	if _, ok := c.data[ID]; !ok {
+		c.data[ID] = map[string]Tickets{}
 	}
-	c.data[Id][ticket.Id] = append(c.data[Id][ticket.Id], ticket)
+	c.data[ID][ticket.ID] = append(c.data[ID][ticket.ID], ticket)
 
 	//insert url
-	if _, ok := c.data[Url]; !ok {
-		c.data[Url] = map[string]Tickets{}
+	if _, ok := c.data[URL]; !ok {
+		c.data[URL] = map[string]Tickets{}
 	}
-	c.data[Url][ticket.Url] = append(c.data[Url][ticket.Url], ticket)
+	c.data[URL][ticket.URL] = append(c.data[URL][ticket.URL], ticket)
 	//insert external_id
-	if _, ok := c.data[ExternalId]; !ok {
-		c.data[ExternalId] = map[string]Tickets{}
+	if _, ok := c.data[ExternalID]; !ok {
+		c.data[ExternalID] = map[string]Tickets{}
 	}
-	c.data[ExternalId][ticket.ExternalId] = append(c.data[ExternalId][ticket.ExternalId], ticket)
+	c.data[ExternalID][ticket.ExternalID] = append(c.data[ExternalID][ticket.ExternalID], ticket)
 	//insert created_at
 	if _, ok := c.data[CreatedAt]; !ok {
 		c.data[CreatedAt] = map[string]Tickets{}
@@ -135,20 +135,20 @@ func (c *cache) addTicket(ticket *Ticket) error {
 	}
 	c.data[Status][ticket.Status] = append(c.data[Status][ticket.Status], ticket)
 	//insert submitter_id
-	if _, ok := c.data[SubmitterId]; !ok {
-		c.data[SubmitterId] = map[string]Tickets{}
+	if _, ok := c.data[SubmitterID]; !ok {
+		c.data[SubmitterID] = map[string]Tickets{}
 	}
-	c.data[SubmitterId][strconv.Itoa(ticket.SubmitterId)] = append(c.data[SubmitterId][strconv.Itoa(ticket.SubmitterId)], ticket)
+	c.data[SubmitterID][strconv.Itoa(ticket.SubmitterID)] = append(c.data[SubmitterID][strconv.Itoa(ticket.SubmitterID)], ticket)
 	//insert assignee_id
-	if _, ok := c.data[AssigneeId]; !ok {
-		c.data[AssigneeId] = map[string]Tickets{}
+	if _, ok := c.data[AssigneeID]; !ok {
+		c.data[AssigneeID] = map[string]Tickets{}
 	}
-	c.data[AssigneeId][strconv.Itoa(ticket.AssigneeId)] = append(c.data[AssigneeId][strconv.Itoa(ticket.AssigneeId)], ticket)
+	c.data[AssigneeID][strconv.Itoa(ticket.AssigneeID)] = append(c.data[AssigneeID][strconv.Itoa(ticket.AssigneeID)], ticket)
 	//insert organization_id
-	if _, ok := c.data[OrganizationId]; !ok {
-		c.data[OrganizationId] = map[string]Tickets{}
+	if _, ok := c.data[OrganizationID]; !ok {
+		c.data[OrganizationID] = map[string]Tickets{}
 	}
-	c.data[OrganizationId][strconv.Itoa(ticket.OrganizationId)] = append(c.data[OrganizationId][strconv.Itoa(ticket.OrganizationId)], ticket)
+	c.data[OrganizationID][strconv.Itoa(ticket.OrganizationID)] = append(c.data[OrganizationID][strconv.Itoa(ticket.OrganizationID)], ticket)
 	//insert tags
 	if _, ok := c.data[Tags]; !ok {
 		c.data[Tags] = map[string]Tickets{}

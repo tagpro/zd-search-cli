@@ -14,7 +14,7 @@ import (
 func TestGetOrganisations(t *testing.T) {
 	t.Run("Fails to return with invalid key name", TestGetOrganisations_invalidKey)
 	t.Run("Fails to return with invalid value", TestGetOrganisations_notFound)
-	t.Run("Successfully returns organistaions list", TestGetOrganisations_Found)
+	t.Run("Successfully returns organisations list", TestGetOrganisations_Found)
 }
 
 func TestGetOrganisations_invalidKey(t *testing.T) {
@@ -62,9 +62,9 @@ func TestAddOrganisation_invalidCache(t *testing.T) {
 func TestAddOrganisation_successful(t *testing.T) {
 	assert := tassert.New(t)
 	org := &Organisation{
-		Id:            101,
-		Url:           "url",
-		ExternalId:    "external id",
+		ID:            101,
+		URL:           "url",
+		ExternalID:    "external id",
 		Name:          "Mega Corp",
 		DomainNames:   []string{"corp.com", "bar.com"},
 		CreatedAt:     jsontime.Time{},
@@ -77,9 +77,9 @@ func TestAddOrganisation_successful(t *testing.T) {
 		data:          map[string]map[string]Organisations{},
 	}
 	want := map[string]map[string]Organisations{
-		Id:            {"101": Organisations{org}},
-		Url:           {"url": Organisations{org}},
-		ExternalId:    {"external id": Organisations{org}},
+		ID:            {"101": Organisations{org}},
+		URL:           {"url": Organisations{org}},
+		ExternalID:    {"external id": Organisations{org}},
 		Name:          {"Mega Corp": Organisations{org}},
 		DomainNames:   {"corp.com": Organisations{org}, "bar.com": Organisations{org}},
 		CreatedAt:     {"0001-01-01T00:00:00 +00:00": Organisations{org}},

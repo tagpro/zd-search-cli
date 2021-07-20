@@ -54,9 +54,9 @@ func TestLoadOrganisation_validFile(t *testing.T) {
 	assert := tassert.New(t)
 	var valid = &cache{
 		organisations: Organisations{{
-			Id:            101,
-			Url:           "url",
-			ExternalId:    "external id",
+			ID:            101,
+			URL:           "url",
+			ExternalID:    "external id",
 			Name:          "Mega Corp",
 			DomainNames:   []string{"corp.com", "bar.com"},
 			CreatedAt:     jsontime.Time{},

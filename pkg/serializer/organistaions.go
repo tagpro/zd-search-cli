@@ -19,9 +19,9 @@ func (s *serializer) printOrganisations(organisations orgstore.Organisations) er
 		// Print Org info
 		var printData []kv
 		printData = append(printData,
-			kv{Id, strconv.Itoa(org.Id)},
-			kv{Url, org.Url},
-			kv{ExternalId, org.ExternalId},
+			kv{ID, strconv.Itoa(org.ID)},
+			kv{URL, org.URL},
+			kv{ExternalID, org.ExternalID},
 			kv{Name, org.Name},
 			kv{DomainNames, strings.Join(org.DomainNames, ", ")},
 			kv{CreatedAt, org.CreatedAt.Format(jsontime.ZDTimeFormat)},
@@ -33,7 +33,7 @@ func (s *serializer) printOrganisations(organisations orgstore.Organisations) er
 
 		// Print Users
 		printData = []kv{}
-		users, err := s.store.GetUsers(userstore.OrganizationId, strconv.Itoa(org.Id))
+		users, err := s.store.GetUsers(userstore.OrganizationID, strconv.Itoa(org.ID))
 		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}
@@ -45,7 +45,7 @@ func (s *serializer) printOrganisations(organisations orgstore.Organisations) er
 
 		// Print Tickets
 		printData = []kv{}
-		tickets, err := s.store.GetTickets(ticketstore.OrganizationId, strconv.Itoa(org.Id))
+		tickets, err := s.store.GetTickets(ticketstore.OrganizationID, strconv.Itoa(org.ID))
 		if err != nil && !errors.Is(err, zerror.ErrNotFound) {
 			return err
 		}

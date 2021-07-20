@@ -9,9 +9,9 @@ import (
 )
 
 type Organisation struct {
-	Id            int           `json:"_id"`
-	Url           string        `json:"url"`
-	ExternalId    string        `json:"external_id"`
+	ID            int           `json:"_id"`
+	URL           string        `json:"url"`
+	ExternalID    string        `json:"external_id"`
 	Name          string        `json:"name"`
 	DomainNames   []string      `json:"domain_names"`
 	CreatedAt     jsontime.Time `json:"created_at"`

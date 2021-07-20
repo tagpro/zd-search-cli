@@ -13,9 +13,9 @@ import (
 )
 
 const (
-	Id             = "_id"
-	Url            = "url"
-	ExternalId     = "external_id"
+	ID             = "_id"
+	URL            = "url"
+	ExternalID     = "external_id"
 	Name           = "name"
 	Alias          = "alias"
 	CreatedAt      = "created_at"
@@ -28,7 +28,7 @@ const (
 	Email          = "email"
 	Phone          = "phone"
 	Signature      = "signature"
-	OrganizationId = "organization_id"
+	OrganizationID = "organization_id"
 	Tags           = "tags"
 	Suspended      = "suspended"
 	Role           = "role"
@@ -36,9 +36,9 @@ const (
 
 func GetKeys() []string {
 	return []string{
-		Id,
-		Url,
-		ExternalId,
+		ID,
+		URL,
+		ExternalID,
 		Name,
 		Alias,
 		CreatedAt,
@@ -51,7 +51,7 @@ func GetKeys() []string {
 		Email,
 		Phone,
 		Signature,
-		OrganizationId,
+		OrganizationID,
 		Tags,
 		Suspended,
 		Role,
@@ -96,22 +96,22 @@ func (c *cache) addUser(user *User) error {
 		return fmt.Errorf("cache data not initialised")
 	}
 	// Insert _id
-	if _, ok := c.data[Id]; !ok {
-		c.data[Id] = map[string]Users{}
+	if _, ok := c.data[ID]; !ok {
+		c.data[ID] = map[string]Users{}
 	}
-	c.data[Id][strconv.Itoa(user.Id)] = append(c.data[Id][strconv.Itoa(user.Id)], user)
+	c.data[ID][strconv.Itoa(user.ID)] = append(c.data[ID][strconv.Itoa(user.ID)], user)
 
 	// Insert url
-	if _, ok := c.data[Url]; !ok {
-		c.data[Url] = map[string]Users{}
+	if _, ok := c.data[URL]; !ok {
+		c.data[URL] = map[string]Users{}
 	}
-	c.data[Url][user.Url] = append(c.data[Url][user.Url], user)
+	c.data[URL][user.URL] = append(c.data[URL][user.URL], user)
 
 	// Insert external_id
-	if _, ok := c.data[ExternalId]; !ok {
-		c.data[ExternalId] = map[string]Users{}
+	if _, ok := c.data[ExternalID]; !ok {
+		c.data[ExternalID] = map[string]Users{}
 	}
-	c.data[ExternalId][user.ExternalId] = append(c.data[ExternalId][user.ExternalId], user)
+	c.data[ExternalID][user.ExternalID] = append(c.data[ExternalID][user.ExternalID], user)
 
 	// Insert name
 	if _, ok := c.data[Name]; !ok {
@@ -186,10 +186,10 @@ func (c *cache) addUser(user *User) error {
 	}
 	c.data[Signature][user.Signature] = append(c.data[Signature][user.Signature], user)
 	// Insert organization_id
-	if _, ok := c.data[OrganizationId]; !ok {
-		c.data[OrganizationId] = map[string]Users{}
+	if _, ok := c.data[OrganizationID]; !ok {
+		c.data[OrganizationID] = map[string]Users{}
 	}
-	c.data[OrganizationId][strconv.Itoa(user.OrganizationId)] = append(c.data[OrganizationId][strconv.Itoa(user.OrganizationId)], user)
+	c.data[OrganizationID][strconv.Itoa(user.OrganizationID)] = append(c.data[OrganizationID][strconv.Itoa(user.OrganizationID)], user)
 	// Insert tags
 	if _, ok := c.data[Tags]; !ok {
 		c.data[Tags] = map[string]Users{}

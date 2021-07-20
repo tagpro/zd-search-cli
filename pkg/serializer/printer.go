@@ -6,9 +6,9 @@ import (
 
 // Common printing keys are defined here
 const (
-	Id             = "_id"
-	Url            = "url"
-	ExternalId     = "external_id"
+	ID             = "_id"
+	URL            = "url"
+	ExternalID     = "external_id"
 	Name           = "name"
 	DomainNames    = "domain_names"
 	CreatedAt      = "created_at"
@@ -20,9 +20,9 @@ const (
 	Description    = "description"
 	Priority       = "priority"
 	Status         = "status"
-	SubmitterId    = "submitter_id"
-	AssigneeId     = "assignee_id"
-	OrganizationId = "organization_id"
+	SubmitterID    = "submitter_id"
+	AssigneeID     = "assignee_id"
+	OrganizationID = "organization_id"
 	HasIncidents   = "has_incidents"
 	DueAt          = "due_at"
 	Via            = "via"

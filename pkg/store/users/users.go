@@ -2,7 +2,6 @@ package users
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 
@@ -35,9 +34,6 @@ type Users []*User
 
 func LoadUsers(path string) (Cache, error) {
 	var users Users
-	if path == "" {
-		return nil, errors.New("no file path available")
-	}
 
 	jsonFile, err := os.ReadFile(path)
 	if err != nil {

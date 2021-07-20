@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "id",
+    "url": "url",
+    "external_id": "external id",
+    "created_at": "2016-04-28T11:19:34 -10:00",
+    "type": "incident",
+    "subject": "subject",
+    "description": "just a description?",
+    "priority": "medium-high",
+    "status": "pending",
+    "submitter_id": 1,
+    "assignee_id": 2,
+    "organization_id": 100,
+    "tags": [
+      "kokomo",
+      "bahamas"
+    ],
+    "has_incidents": true,
+    "due_at": "2016-07-31T02:37:50 -10:00",
+    "via": "web"
+  }
+]

@@ -2,7 +2,6 @@ package tickets
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 
@@ -32,9 +31,6 @@ type Tickets []*Ticket
 
 func LoadTickets(path string) (Cache, error) {
 	var tickets Tickets
-	if path == "" {
-		return nil, errors.New("no file path available")
-	}
 
 	jsonFile, err := os.ReadFile(path)
 	if err != nil {

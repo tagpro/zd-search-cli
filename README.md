@@ -2,8 +2,13 @@
 
 ## Setup requirements
 
-Go 1.16 was the development setup for this application. You can install golang by following the steps [here](https://golang.org/doc/install)
-If you are on mac, you can run `brew install go` to install latest version of golang
+Go 1.16 was the development setup for this application. 
+
+The easiest way to install go is using the official docs. Install golang by following the steps [here](https://golang.org/doc/install)
+
+If you are on mac, you can run `brew install go` to install the latest version of golang.
+
+If you are on Ubuntu, you can follow the steps here - https://github.com/golang/go/wiki/Ubuntu
 
 ## Running the application locally
 

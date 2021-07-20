@@ -2,7 +2,6 @@ package organistations
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 
@@ -25,9 +24,6 @@ type Organisations []*Organisation
 
 func LoadOrganisations(path string) (Cache, error) {
 	var organisations Organisations
-	if path == "" {
-		return nil, errors.New("no file path available")
-	}
 
 	jsonFile, err := os.ReadFile(path)
 	if err != nil {

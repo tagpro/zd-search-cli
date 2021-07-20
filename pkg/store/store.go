@@ -51,8 +51,7 @@ func (s *store) GetKeys() Keys {
 	}
 }
 
-// init optimises the data by create a cache for all the data.
-// It will optimise organisations, then link users to organisations and then link tickets to users and organisations
+// init optimises the data by create a cache(a reverse index of the values) for all the data.
 func (s *store) init() error {
 	if err := s.organisations.Optimise(); err != nil {
 		return err

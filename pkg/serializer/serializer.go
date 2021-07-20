@@ -50,7 +50,7 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		if err != nil {
 			return err
 		}
-		err = s.printOrganisations(orgs)
+		err = printOrganisations(s.store, orgs)
 		if err != nil {
 			return err
 		}
@@ -59,7 +59,7 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		if err != nil {
 			return err
 		}
-		err = s.printUsers(users)
+		err = printUsers(s.store, users)
 		if err != nil {
 			return err
 		}
@@ -68,7 +68,7 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		if err != nil {
 			return err
 		}
-		err = s.printTickets(tickets)
+		err = printTickets(s.store, tickets)
 		if err != nil {
 			return err
 		}

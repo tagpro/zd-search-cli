@@ -1,6 +1,6 @@
 package users
 
-//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=mocks . Cache
+//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=usercache . Cache
 
 import (
 	"errors"

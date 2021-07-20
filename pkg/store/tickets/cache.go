@@ -1,6 +1,6 @@
 package tickets
 
-//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=mocks . Cache
+//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=ticketcache . Cache
 
 import (
 	"errors"

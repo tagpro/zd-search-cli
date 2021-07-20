@@ -5,13 +5,22 @@
 
 ## Setup requirements
 
-Go 1.16 was the development setup for this application. 
-
+**Go 1.16** was the development setup for this application.
 The easiest way to install go is using the official docs. Install golang by following the steps [here](https://golang.org/doc/install)
-
 If you are on mac, you can run `brew install go` to install the latest version of golang.
-
 If you are on Ubuntu, you can follow the steps here - https://github.com/golang/go/wiki/Ubuntu
+
+**[gomock/mockgen](https://github.com/golang/mock)** is used in the repo to generate mocks to test for the interface created for different packages. 
+
+**[golangci-lint](https://github.com/golangci/golangci-lint)** to do linting locally and in CI.
+
+To install gomock, and golangci-lint run the following command 
+
+```bash
+make install-external
+```
+
+NOTE: `curl` is required to run the make command above
 
 ## Running the application locally
 
@@ -32,9 +41,12 @@ Note: It should be able to build easily using default `go env` variables.
 
 ## Running linter locally
 
-This repo uses [golangci-lint](https://github.com/golangci/golangci-lint) to do linting locally and in CI. 
+Run the following command to run linter locally after installing it
 
-To install the tool, run `make install-linter` inside the terminal from the root of the repo. 
+```bash
+make lint
+```
+
 It requires `$GOPATH/bin` to be available inside the `$PATH` (official Go installer does this by default).
 
 If you are on linux, setting the following in `~/.zshrc` or `~/.bashrc` or any other shell of your choosing and restarting the terminal should work 

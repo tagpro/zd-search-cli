@@ -1,6 +1,6 @@
 package organistations
 
-//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=mocks . Cache
+//go:generate mockgen -source=cache.go -destination=testdata/mocks/cache.go -package=orgcache . Cache
 
 import (
 	"errors"

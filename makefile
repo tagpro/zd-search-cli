@@ -1,10 +1,12 @@
 
 
-.PHONY: install-linter
-install-linter:
+.PHONY: install-external
+install-external:
 	# binary will be $(go env GOPATH)/bin/golangci-lint
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $$(go env GOPATH)/bin v1.41.1
 	golangci-lint --version
+	# installing gomock mockgen
+	go install github.com/golang/mock/mockgen@v1.6.0
 
 .PHONY: build
 build:

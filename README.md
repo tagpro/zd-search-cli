@@ -1,6 +1,7 @@
 # Zendesk Search tool
 
 [![Build](https://github.com/tagpro/zd-search-cli/actions/workflows/build.yml/badge.svg)](https://github.com/tagpro/zd-search-cli/actions/workflows/build.yml)
+[![Lint](https://github.com/tagpro/zd-search-cli/actions/workflows/lint.yml/badge.svg)](https://github.com/tagpro/zd-search-cli/actions/workflows/lint.yml)
 
 ## Setup requirements
 

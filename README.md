@@ -1,5 +1,7 @@
 # Zendesk Search tool
 
+[![Build](https://github.com/tagpro/zd-search-cli/actions/workflows/build.yml/badge.svg)](https://github.com/tagpro/zd-search-cli/actions/workflows/build.yml)
+
 ## Setup requirements
 
 Go 1.16 was the development setup for this application. 

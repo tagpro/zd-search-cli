@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	_ "github.com/golang/mock/gomock"
 	flag "github.com/spf13/pflag"
 	"github.com/tagpro/zd-search-cli/pkg/cmd/search"
 )

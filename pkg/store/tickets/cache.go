@@ -1,6 +1,7 @@
 package tickets
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 
@@ -70,7 +71,21 @@ func (c *cache) GetTickets(key, input string) (Tickets, error) {
 	}
 }
 
+func (c *cache) Optimise() error {
+	if c.tickets == nil || c.data == nil {
+		return errors.New("cache not initialised")
+	}
+	for _, ticket := range c.tickets {
+		if err := c.addTicket(ticket); err != nil {
+			return fmt.Errorf("failed to load all tickets: %w", err)
+		}
+	}
+	return nil
+}
 func (c *cache) addTicket(ticket *Ticket) error {
+	if c.data == nil {
+		return fmt.Errorf("cache data not initialised")
+	}
 	//insert _id
 	if _, ok := c.data[Id]; !ok {
 		c.data[Id] = map[string]Tickets{}
@@ -154,15 +169,6 @@ func (c *cache) addTicket(ticket *Ticket) error {
 		c.data[Via] = map[string]Tickets{}
 	}
 	c.data[Via][ticket.Via] = append(c.data[Via][ticket.Via], ticket)
-	return nil
-}
-
-func (c *cache) Optimise() error {
-	for _, ticket := range c.tickets {
-		if err := c.addTicket(ticket); err != nil {
-			return fmt.Errorf("failed to load all tickets: %w", err)
-		}
-	}
 	return nil
 }
 

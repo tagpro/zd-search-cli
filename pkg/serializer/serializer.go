@@ -39,6 +39,7 @@ type SearchCriteria struct {
 
 type Serializer interface {
 	SearchEntity(criteria SearchCriteria) error
+	PrintKeys()
 }
 
 type serializer struct {
@@ -76,6 +77,14 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 		}
 	}
 	return nil
+}
+
+func (s *serializer) PrintKeys() {
+	keys := s.store.GetKeys()
+	printList("List of acceptable keys to search on:")
+	printList(string(Organisations), keys.Organisation...)
+	printList(string(Tickets), keys.Ticket...)
+	printList(string(Users), keys.User...)
 }
 
 func NewSerializer(s store.Store) Serializer {

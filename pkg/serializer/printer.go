@@ -57,13 +57,22 @@ type kv struct {
 	value string
 }
 
-// pprint takes in a title and a list of key value pairs and pretty prints it as a table with 2 columns.
-func pprint(title string, kvs ...kv) {
+// printKVs takes in a title and a list of key value pairs and pretty prints it as a table with 2 columns.
+func printKVs(title string, kvs ...kv) {
 	red := color.New(color.FgRed)
 	cyan := color.New(color.FgCyan)
 	red.Fprintln(os.Stdout, title)
 	for _, data := range kvs {
 		cyan.Fprintf(os.Stdout, "%-20s | %s\n", data.key, data.value)
+	}
+}
+
+func printList(title string, a ...string) {
+	red := color.New(color.FgRed)
+	cyan := color.New(color.FgCyan)
+	red.Fprintln(os.Stdout, title)
+	for _, val := range a {
+		cyan.Fprintln(os.Stdout, val)
 	}
 }
 
@@ -83,7 +92,7 @@ func printOrganisations(s store.Store, organisations orgstore.Organisations) err
 			kv{SharedTickets, strconv.FormatBool(org.SharedTickets)},
 			kv{Tags, strings.Join(org.Tags, ", ")},
 		)
-		pprint("Organisation", printData...)
+		printKVs("Organisation", printData...)
 
 		// Print Users
 		printData = []kv{}
@@ -95,7 +104,7 @@ func printOrganisations(s store.Store, organisations orgstore.Organisations) err
 			printData = append(printData, kv{strconv.Itoa(i), user.Name})
 		}
 
-		pprint("Users for organisation: "+org.Name, printData...)
+		printKVs("Users for organisation: "+org.Name, printData...)
 
 		// Print Tickets
 		printData = []kv{}
@@ -107,7 +116,7 @@ func printOrganisations(s store.Store, organisations orgstore.Organisations) err
 			printData = append(printData, kv{strconv.Itoa(i), ticket.Subject})
 		}
 
-		pprint("Tickets for organisation: "+org.Name, printData...)
+		printKVs("Tickets for organisation: "+org.Name, printData...)
 	}
 	return nil
 }
@@ -137,7 +146,7 @@ func printUsers(s store.Store, users userstore.Users) error {
 			kv{Suspended, strconv.FormatBool(user.Suspended)},
 			kv{Role, user.Role},
 		)
-		pprint("User", printData...)
+		printKVs("User", printData...)
 
 		// Print Organisation
 		printData = []kv{}
@@ -149,7 +158,7 @@ func printUsers(s store.Store, users userstore.Users) error {
 			printData = append(printData, kv{strconv.Itoa(org.ID), org.Name})
 		}
 
-		pprint("Organisation for user: "+user.Name, printData...)
+		printKVs("Organisation for user: "+user.Name, printData...)
 
 		// Print submitted tickets
 		printData = []kv{}
@@ -160,7 +169,7 @@ func printUsers(s store.Store, users userstore.Users) error {
 		for i, ticket := range tickets {
 			printData = append(printData, kv{strconv.Itoa(i), ticket.Subject})
 		}
-		pprint("Submitted tickets from User: "+user.Name, printData...)
+		printKVs("Submitted tickets from User: "+user.Name, printData...)
 
 		// Print assigned tickets
 		printData = []kv{}
@@ -172,7 +181,7 @@ func printUsers(s store.Store, users userstore.Users) error {
 			printData = append(printData, kv{strconv.Itoa(i), ticket.Subject})
 		}
 
-		pprint("Assigned tickets to User: "+user.Name, printData...)
+		printKVs("Assigned tickets to User: "+user.Name, printData...)
 	}
 	return nil
 }
@@ -200,7 +209,7 @@ func printTickets(s store.Store, tickets ticketstore.Tickets) error {
 			kv{DueAt, ticket.DueAt.Format(jsontime.ZDTimeFormat)},
 			kv{Via, ticket.Via},
 		)
-		pprint("Ticket", printData...)
+		printKVs("Ticket", printData...)
 
 		// Print Users
 		printData = []kv{}
@@ -219,7 +228,7 @@ func printTickets(s store.Store, tickets ticketstore.Tickets) error {
 			printData = append(printData, kv{"Assignee", user.Name})
 		}
 
-		pprint("Users for ticket: "+ticket.Subject, printData...)
+		printKVs("Users for ticket: "+ticket.Subject, printData...)
 
 		// Print Organisation
 		printData = []kv{}
@@ -231,7 +240,7 @@ func printTickets(s store.Store, tickets ticketstore.Tickets) error {
 			printData = append(printData, kv{strconv.Itoa(org.ID), org.Name})
 		}
 
-		pprint("Organisation for ticket: "+ticket.Subject, printData...)
+		printKVs("Organisation for ticket: "+ticket.Subject, printData...)
 	}
 	return nil
 }

@@ -76,8 +76,7 @@ func (a *app) handlePrimaryResponse(result string) error {
 		}
 		return err
 	case showFields:
-		//TODO: Get all the fields in serializer and print it
-		fmt.Println("Showing all the fields")
+		a.serializer.PrintKeys()
 	case quit:
 		return fmt.Errorf("%w", zerror.ErrQuit)
 	default:

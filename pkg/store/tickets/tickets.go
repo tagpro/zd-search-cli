@@ -29,6 +29,8 @@ type Ticket struct {
 
 type Tickets []*Ticket
 
+// LoadTickets loads a JSON file into an unoptimised cache and returns it.
+// It is advised to call `.Optimise()` on the returned cache to use the cache
 func LoadTickets(path string) (Cache, error) {
 	var tickets Tickets
 

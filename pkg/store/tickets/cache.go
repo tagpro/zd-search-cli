@@ -31,6 +31,7 @@ const (
 	Via            = "via"
 )
 
+// GetKeys returns the list of all the keys on which ticket is cached on
 func GetKeys() []string {
 	return []string{
 		ID,
@@ -52,6 +53,8 @@ func GetKeys() []string {
 	}
 }
 
+// Cache is used to optimise all the tickets by creating an index and fetch a list of Tickets using
+// keys from the list of available keys from JSON and the value for the key
 type Cache interface {
 	GetTickets(key, input string) (Tickets, error)
 	Optimise() error
@@ -62,6 +65,7 @@ type cache struct {
 	data    map[string]map[string]Tickets
 }
 
+// GetTickets takes in key, the search term in the question, and search value to return the list of tickets
 func (c *cache) GetTickets(key, input string) (Tickets, error) {
 	if _, ok := c.data[key]; !ok {
 		return nil, fmt.Errorf("invalid field name %s", key)
@@ -73,6 +77,7 @@ func (c *cache) GetTickets(key, input string) (Tickets, error) {
 	}
 }
 
+// Optimise creates an index from a (key, value) to list of tickets
 func (c *cache) Optimise() error {
 	if c.tickets == nil || c.data == nil {
 		return errors.New("cache not initialised")
@@ -84,89 +89,91 @@ func (c *cache) Optimise() error {
 	}
 	return nil
 }
+
+// addTicket adds an ticket into the cache (the key, value map)
 func (c *cache) addTicket(ticket *Ticket) error {
 	if c.data == nil {
 		return fmt.Errorf("cache data not initialised")
 	}
-	//insert _id
+	// insert _id
 	if _, ok := c.data[ID]; !ok {
 		c.data[ID] = map[string]Tickets{}
 	}
 	c.data[ID][ticket.ID] = append(c.data[ID][ticket.ID], ticket)
 
-	//insert url
+	// insert url
 	if _, ok := c.data[URL]; !ok {
 		c.data[URL] = map[string]Tickets{}
 	}
 	c.data[URL][ticket.URL] = append(c.data[URL][ticket.URL], ticket)
-	//insert external_id
+	// insert external_id
 	if _, ok := c.data[ExternalID]; !ok {
 		c.data[ExternalID] = map[string]Tickets{}
 	}
 	c.data[ExternalID][ticket.ExternalID] = append(c.data[ExternalID][ticket.ExternalID], ticket)
-	//insert created_at
+	// insert created_at
 	if _, ok := c.data[CreatedAt]; !ok {
 		c.data[CreatedAt] = map[string]Tickets{}
 	}
 	c.data[CreatedAt][ticket.CreatedAt.Format(jsontime.ZDTimeFormat)] = append(c.data[CreatedAt][ticket.CreatedAt.Format(jsontime.ZDTimeFormat)], ticket)
-	//insert type
+	// insert type
 	if _, ok := c.data[Type]; !ok {
 		c.data[Type] = map[string]Tickets{}
 	}
 	c.data[Type][ticket.Type] = append(c.data[Type][ticket.Type], ticket)
-	//insert subject
+	// insert subject
 	if _, ok := c.data[Subject]; !ok {
 		c.data[Subject] = map[string]Tickets{}
 	}
 	c.data[Subject][ticket.Subject] = append(c.data[Subject][ticket.Subject], ticket)
-	//insert description
+	// insert description
 	if _, ok := c.data[Description]; !ok {
 		c.data[Description] = map[string]Tickets{}
 	}
 	c.data[Description][ticket.Description] = append(c.data[Description][ticket.Description], ticket)
-	//insert priority
+	// insert priority
 	if _, ok := c.data[Priority]; !ok {
 		c.data[Priority] = map[string]Tickets{}
 	}
 	c.data[Priority][ticket.Priority] = append(c.data[Priority][ticket.Priority], ticket)
-	//insert status
+	// insert status
 	if _, ok := c.data[Status]; !ok {
 		c.data[Status] = map[string]Tickets{}
 	}
 	c.data[Status][ticket.Status] = append(c.data[Status][ticket.Status], ticket)
-	//insert submitter_id
+	// insert submitter_id
 	if _, ok := c.data[SubmitterID]; !ok {
 		c.data[SubmitterID] = map[string]Tickets{}
 	}
 	c.data[SubmitterID][strconv.Itoa(ticket.SubmitterID)] = append(c.data[SubmitterID][strconv.Itoa(ticket.SubmitterID)], ticket)
-	//insert assignee_id
+	// insert assignee_id
 	if _, ok := c.data[AssigneeID]; !ok {
 		c.data[AssigneeID] = map[string]Tickets{}
 	}
 	c.data[AssigneeID][strconv.Itoa(ticket.AssigneeID)] = append(c.data[AssigneeID][strconv.Itoa(ticket.AssigneeID)], ticket)
-	//insert organization_id
+	// insert organization_id
 	if _, ok := c.data[OrganizationID]; !ok {
 		c.data[OrganizationID] = map[string]Tickets{}
 	}
 	c.data[OrganizationID][strconv.Itoa(ticket.OrganizationID)] = append(c.data[OrganizationID][strconv.Itoa(ticket.OrganizationID)], ticket)
-	//insert tags
+	// insert tags
 	if _, ok := c.data[Tags]; !ok {
 		c.data[Tags] = map[string]Tickets{}
 	}
 	for _, tag := range ticket.Tags {
 		c.data[Tags][tag] = append(c.data[Tags][tag], ticket)
 	}
-	//insert has_incidents
+	// insert has_incidents
 	if _, ok := c.data[HasIncidents]; !ok {
 		c.data[HasIncidents] = map[string]Tickets{}
 	}
 	c.data[HasIncidents][strconv.FormatBool(ticket.HasIncidents)] = append(c.data[HasIncidents][strconv.FormatBool(ticket.HasIncidents)], ticket)
-	//insert due_at
+	// insert due_at
 	if _, ok := c.data[DueAt]; !ok {
 		c.data[DueAt] = map[string]Tickets{}
 	}
 	c.data[DueAt][ticket.DueAt.Format(jsontime.ZDTimeFormat)] = append(c.data[DueAt][ticket.DueAt.Format(jsontime.ZDTimeFormat)], ticket)
-	//insert via
+	// insert via
 	if _, ok := c.data[Via]; !ok {
 		c.data[Via] = map[string]Tickets{}
 	}

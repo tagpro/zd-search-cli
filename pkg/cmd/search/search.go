@@ -26,6 +26,7 @@ type app struct {
 	serializer serializer.Serializer
 }
 
+// Run creates the interface to take user input and process it. It wraps an internal method that handles the input logic
 func (a *app) Run() error {
 	fmt.Println("Starting the app . . .")
 	for {
@@ -40,7 +41,8 @@ func (a *app) Run() error {
 	}
 }
 
-// serve defines and runs a single flow of prompts to serve the users request
+// serve defines and runs a single flow of prompts to serve the users request. It is responsible to create a
+// user flow for a single operation
 func (a *app) serve() error {
 	primaryOptions := []string{
 		searchZendesk,
@@ -85,6 +87,8 @@ func (a *app) handlePrimaryResponse(result string) error {
 	return nil
 }
 
+// getSearchCriteria will as user to choose the values to search for and create the search criteria required by the
+// serializer as an input.
 func getSearchCriteria() (criteria *serializer.SearchCriteria, err error) {
 	entityPrompt := promptui.Select{
 		Label: "Please select a category",
@@ -116,6 +120,7 @@ func getSearchCriteria() (criteria *serializer.SearchCriteria, err error) {
 	return &serializer.SearchCriteria{Entity: entity, Field: field, Value: value}, nil
 }
 
+// NewSearchApp initialises the store and returns a Cli application
 func NewSearchApp(usersFile, ticketsFile, organisationFile string) (Cli, error) {
 	s, err := store.NewStore(store.Files{
 		UsersFile:         usersFile,
@@ -126,10 +131,4 @@ func NewSearchApp(usersFile, ticketsFile, organisationFile string) (Cli, error) 
 		return nil, fmt.Errorf("failed to create store: %w", err)
 	}
 	return &app{serializer.NewSerializer(s)}, nil
-}
-
-func Help() {
-	fmt.Println(`TODO: Help
-Is
-Coming`)
 }

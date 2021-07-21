@@ -67,6 +67,7 @@ func printKVs(title string, kvs ...kv) {
 	}
 }
 
+// printList takes in a title to print and optional list of strings to be printed out
 func printList(title string, a ...string) {
 	red := color.New(color.FgRed)
 	cyan := color.New(color.FgCyan)
@@ -76,8 +77,8 @@ func printList(title string, a ...string) {
 	}
 }
 
+// printOrganisations prints the organisation details and its underlying Users and Tickets
 func printOrganisations(s store.Store, organisations orgstore.Organisations) error {
-
 	for _, org := range organisations {
 		// Print Org info
 		var printData []kv
@@ -121,6 +122,7 @@ func printOrganisations(s store.Store, organisations orgstore.Organisations) err
 	return nil
 }
 
+// printUsers is responsible to print the user details and its linked organisation and tickets
 func printUsers(s store.Store, users userstore.Users) error {
 	for _, user := range users {
 		// Print User info
@@ -186,6 +188,7 @@ func printUsers(s store.Store, users userstore.Users) error {
 	return nil
 }
 
+// printTickets prints the ticket details and its linked organisation, submitter and assignee.
 func printTickets(s store.Store, tickets ticketstore.Tickets) error {
 	for _, ticket := range tickets {
 		// Print Org info

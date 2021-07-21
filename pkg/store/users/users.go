@@ -32,6 +32,8 @@ type User struct {
 
 type Users []*User
 
+// LoadUsers loads a JSON file into an unoptimised cache and returns it.
+// It is advised to call `.Optimise()` on the returned cache to use the cache
 func LoadUsers(path string) (Cache, error) {
 	var users Users
 

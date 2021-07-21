@@ -22,6 +22,8 @@ type Organisation struct {
 
 type Organisations []*Organisation
 
+// LoadOrganisations loads a JSON file into an unoptimised cache and returns it.
+// It is advised to call `.Optimise()` on the returned cache to use the cache
 func LoadOrganisations(path string) (Cache, error) {
 	var organisations Organisations
 

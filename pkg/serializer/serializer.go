@@ -4,6 +4,7 @@ package serializer
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/tagpro/zd-search-cli/pkg/store"
 )
@@ -82,9 +83,9 @@ func (s *serializer) SearchEntity(criteria SearchCriteria) error {
 func (s *serializer) PrintKeys() {
 	keys := s.store.GetKeys()
 	printList("List of acceptable keys to search on:")
-	printList(string(Organisations), keys.Organisation...)
-	printList(string(Tickets), keys.Ticket...)
-	printList(string(Users), keys.User...)
+	printList(fmt.Sprintf("Search %s with:", Organisations), keys.Organisation...)
+	printList(fmt.Sprintf("Search %s with:", Tickets), keys.Ticket...)
+	printList(fmt.Sprintf("Search %s with:", Users), keys.User...)
 }
 
 func NewSerializer(s store.Store) Serializer {

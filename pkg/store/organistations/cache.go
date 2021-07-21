@@ -41,6 +41,8 @@ func GetKeys() []string {
 	return keys
 }
 
+// Cache is used to optimise all the organisations by creating an index and fetch a list of Organisations using
+// keys from the list of available keys from JSON and the value for the key
 type Cache interface {
 	GetOrganisations(key, input string) (Organisations, error)
 	Optimise() error
@@ -51,6 +53,7 @@ type cache struct {
 	data          map[string]map[string]Organisations
 }
 
+// GetOrganisations takes in key, the search term in the question, and search value to return the list of organisations
 func (c *cache) GetOrganisations(key, input string) (Organisations, error) {
 	if _, ok := c.data[key]; !ok {
 		return nil, fmt.Errorf("invalid field name %s", key)
@@ -62,6 +65,7 @@ func (c *cache) GetOrganisations(key, input string) (Organisations, error) {
 	}
 }
 
+// Optimise creates an index from a (key, value) to list of organisations
 func (c *cache) Optimise() error {
 	if c.organisations == nil || c.data == nil {
 		return errors.New("cache not initialised")
@@ -74,6 +78,7 @@ func (c *cache) Optimise() error {
 	return nil
 }
 
+// addOrganisation adds an organisation into the cache (the key, value map)
 func (c *cache) addOrganisation(org *Organisation) error {
 	if c.data == nil {
 		return fmt.Errorf("cache data not initialised")

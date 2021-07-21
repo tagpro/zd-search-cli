@@ -34,6 +34,7 @@ const (
 	Role           = "role"
 )
 
+// GetKeys returns the list of all the keys on which user is cached on
 func GetKeys() []string {
 	return []string{
 		ID,
@@ -58,6 +59,8 @@ func GetKeys() []string {
 	}
 }
 
+// Cache is used to optimise all the users by creating an index and fetch a list of Users using
+// keys from the list of available keys from JSON and the value for the key
 type Cache interface {
 	GetUsers(key, input string) (Users, error)
 	Optimise() error
@@ -68,6 +71,7 @@ type cache struct {
 	data  map[string]map[string]Users
 }
 
+// GetUsers takes in key, the search term in the question, and search value to return the list of users
 func (c *cache) GetUsers(key, input string) (Users, error) {
 	if _, ok := c.data[key]; !ok {
 		return nil, fmt.Errorf("invalid field name %s", key)
@@ -79,6 +83,7 @@ func (c *cache) GetUsers(key, input string) (Users, error) {
 	}
 }
 
+// Optimise creates an index from a (key, value) to list of users
 func (c *cache) Optimise() error {
 	if c.users == nil || c.data == nil {
 		return errors.New("cache not initialised")
@@ -91,6 +96,7 @@ func (c *cache) Optimise() error {
 	return nil
 }
 
+// addUser adds an user into the cache (the key, value map)
 func (c *cache) addUser(user *User) error {
 	if c.data == nil {
 		return fmt.Errorf("cache data not initialised")

@@ -20,6 +20,10 @@ run: build
 test:
 	go test ./...
 
+.PHONY: test/generate
+test/generate:
+	go generate ./...
+
 .PHONY: lint
 lint:
 	golangci-lint run

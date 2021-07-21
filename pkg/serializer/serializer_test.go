@@ -159,4 +159,56 @@ func TestNewSerializer(t *testing.T) {
 	assert.Equal(s, &serializer{mockStore})
 }
 
-//TODO: Add tests for GetEntities and ToEntities
+func TestGetEntities(t *testing.T) {
+	tassert.Equal(t, []string{"Users", "Tickets", "Organisations"}, GetEntities())
+}
+
+func TestToEntity(t *testing.T) {
+	cases := []struct {
+		name  string
+		input string
+		want  Entity
+		err   string
+	}{
+		{
+			name:  "failed to return for wrong value",
+			input: "foo",
+			want:  "",
+			err:   "invalid entity",
+		},
+		{
+			name:  "failed to return for empty value",
+			input: "",
+			want:  "",
+			err:   "invalid entity",
+		},
+		{
+			name:  "successfully converts Users",
+			input: "Users",
+			want:  "Users",
+			err:   "",
+		},
+		{
+			name:  "successfully converts Tickets",
+			input: "Tickets",
+			want:  "Tickets",
+			err:   "",
+		},
+		{
+			name:  "successfully converts Organisations",
+			input: "Organisations",
+			want:  "Organisations",
+			err:   "",
+		},
+	}
+	for _, tcase := range cases {
+		t.Run(tcase.name, func(t *testing.T) {
+			assert := tassert.New(t)
+			got, gotErr := ToEntity(tcase.input)
+			if tcase.err != "" {
+				assert.EqualError(gotErr, tcase.err)
+			}
+			assert.Equal(tcase.want, got)
+		})
+	}
+}

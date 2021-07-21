@@ -1,5 +1,7 @@
 package serializer
 
+//go:generate mockgen -source=serializer.go -destination=./testdata/mocks/serializer.go -package=serializer . Serializer
+
 import (
 	"errors"
 

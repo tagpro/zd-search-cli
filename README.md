@@ -10,14 +10,14 @@ The easiest way to install go is using the official docs. Install golang by foll
 If you are on mac, you can run `brew install go` to install the latest version of golang.
 If you are on Ubuntu, you can follow the steps here - https://github.com/golang/go/wiki/Ubuntu
 
-**[gomock/mockgen](https://github.com/golang/mock)** is used in the repo to generate mocks to test for the interface created for different packages. 
+**[golang/mock](https://github.com/golang/mock)** is used in the repo to generate mocks to test for the interface created for different packages. 
 
 **[golangci-lint](https://github.com/golangci/golangci-lint)** to do linting locally and in CI.
 
 To install gomock, and golangci-lint run the following command 
 
 ```bash
-make install-external
+make install/dependencies
 ```
 
 NOTE: `curl` is required to run the make command above
@@ -38,6 +38,21 @@ go build -o ./bin/search ./cmd/search
 ```
 
 Note: It should be able to build easily using default `go env` variables.
+
+## Running tests
+
+To run the tests, run the following make command
+
+```bash
+make test
+```
+
+Few tests uses [golang/mock](https://github.com/golang/mock) to generate mocks for the interfaces. 
+To update the generated mocks, run the following:
+
+```bash
+make test/generate
+```
 
 ## Running linter locally
 

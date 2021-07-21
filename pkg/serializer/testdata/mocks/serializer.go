@@ -34,6 +34,18 @@ func (m *MockSerializer) EXPECT() *MockSerializerMockRecorder {
 	return m.recorder
 }
 
+// PrintKeys mocks base method.
+func (m *MockSerializer) PrintKeys() {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "PrintKeys")
+}
+
+// PrintKeys indicates an expected call of PrintKeys.
+func (mr *MockSerializerMockRecorder) PrintKeys() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PrintKeys", reflect.TypeOf((*MockSerializer)(nil).PrintKeys))
+}
+
 // SearchEntity mocks base method.
 func (m *MockSerializer) SearchEntity(criteria serializer.SearchCriteria) error {
 	m.ctrl.T.Helper()

@@ -1,7 +1,7 @@
 
 
-.PHONY: install-external
-install-external:
+.PHONY: install/dependencies
+install/dependencies:
 	# binary will be $(go env GOPATH)/bin/golangci-lint
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $$(go env GOPATH)/bin v1.41.1
 	golangci-lint --version
@@ -21,7 +21,7 @@ test:
 	go test ./...
 
 .PHONY: test/generate
-test/generate:
+test/generate:  ## Generate go mocks
 	go generate ./...
 
 .PHONY: lint

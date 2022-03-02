@@ -3,7 +3,7 @@ package jsontime
 import "time"
 
 // Mon Jan 2 15:04:05 -0700 MST 2006
-// 2016-06-03T10:50:56 -10:00
+// 2006-01-02T15:04:05 -07:00
 
 // ZDTimeFormat (Zendesk Time Format) is the time format for Zendesk files
 const ZDTimeFormat = "2006-01-02T15:04:05 -07:00"
